@@ -16,9 +16,9 @@
         // var _lang = utils.Lang.textNoFiles;
         var _lang = {textNoFiles: 'There are no files', btnBrowse: 'Browse'};
 
-        args.id&&(args.id='id="'+args.id+'"')||(args.id='');
+        args.id&&(args.id=`"id=${args.id}"`)||(args.id='');
 
-        let _html = '<div class="action-panel open1 test">' +
+        let _html = `<div ${args.id} class="action-panel open1 test">` +
                         '<div id="box-recent-folders">' +
                             '<div class="flexbox">'+
         // TODO: remove header's table
@@ -57,19 +57,22 @@
 
     window.ControllerFolders = ControllerFolders;
 
-    utils.fn.extend(ControllerFolders.prototype, function() {
+    utils.fn.extend(ControllerFolders.prototype, (() => {
         return {
             init: function() {
                 baseController.prototype.init.apply(this, arguments);
 
                 this.view.render();
 
-                $el.find('#btn-openlocal').click(function() {
+                let $el = $('.action-panel.open1.test');
+
+                $el.find('#btn-openlocal').click(() => {
                     // openFile(OPEN_FILE_FOLDER, '');
+                    alert('open folder click');
                 });
             }
         };
-    }());
+    })());
 }();
 
 /*
